@@ -1,0 +1,37 @@
+name: Deploy Node.js app to Azure Web App - artshare
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # required for actions/checkout
+      id-token: write # required for Azure login
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: "24.x"
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_092B2594609243C6BDB94E2551CBEC50 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2463321A00DA4326BB74DD48A2169B79 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_40BF942F9D77432397F0CE3B7112CBE0 }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "artshare"
+          slot-name: "Production"
+          package: .
