@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # required for actions/checkout
+      contents: read # required for actions/checkouts
       id-token: write # required for Azure login
 
     steps:
