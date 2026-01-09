@@ -4,7 +4,7 @@ const router = express.Router();
 const MediaController = require('../controllers/media.controller');
 const { authenticate } = require('../middleware/auth.middleware');
 
-// Configure multer for file uploads ()
+// Configure multer for file uploads 
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
